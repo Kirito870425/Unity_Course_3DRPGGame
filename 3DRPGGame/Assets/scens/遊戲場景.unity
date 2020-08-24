@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.32079992, g: 0.26904666, b: 0.41345292, a: 1}
+  m_IndirectSpecularColor: {r: 0.50149965, g: 0.50149965, b: 0.50149965, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -384,7 +384,7 @@ Transform:
   - {fileID: 400176707}
   - {fileID: 887029486}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &20039465
 PrefabInstance:
@@ -1645,7 +1645,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -9269,7 +9269,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 97b0cd269422460b9c5672eb06af8f7c,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 97b0cd269422460b9c5672eb06af8f7c,
         type: 3}
@@ -13208,7 +13208,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1034068821}
   serializedVersion: 6
   lengthInSec: 5
-  simulationSpeed: 2
+  simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
@@ -13221,8 +13221,8 @@ ParticleSystem:
   useRigidbodyForVelocity: 1
   startDelay:
     serializedVersion: 2
-    minMaxState: 3
-    scalar: 0.9
+    minMaxState: 0
+    scalar: 0
     minScalar: 0.1
     maxCurve:
       serializedVersion: 2
@@ -13283,7 +13283,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 3
       scalar: 1
-      minScalar: 0.1
+      minScalar: 0.5
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -13334,8 +13334,8 @@ ParticleSystem:
         m_RotationOrder: 4
     startSpeed:
       serializedVersion: 2
-      minMaxState: 3
-      scalar: 1
+      minMaxState: 0
+      scalar: 0
       minScalar: 0.2
       maxCurve:
         serializedVersion: 2
@@ -13388,8 +13388,8 @@ ParticleSystem:
     startColor:
       serializedVersion: 2
       minMaxState: 2
-      minColor: {r: 0.9150943, g: 0.16834284, b: 0.8015899, a: 0.5686275}
-      maxColor: {r: 0.7735849, g: 0.22988607, b: 0.22988607, a: 0.72156864}
+      minColor: {r: 0.9150943, g: 0.16834284, b: 0.8015899, a: 1}
+      maxColor: {r: 0.7735849, g: 0.22988607, b: 0.22988607, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -14032,8 +14032,8 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 800
-      minScalar: 500
+      scalar: 500
+      minScalar: 300
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -14479,7 +14479,7 @@ ParticleSystem:
         key6: {r: 0, g: 0, b: 0, a: 0}
         key7: {r: 0, g: 0, b: 0, a: 0}
         ctime0: 0
-        ctime1: 26214
+        ctime1: 49151
         ctime2: 65535
         ctime3: 0
         ctime4: 0
@@ -14487,7 +14487,7 @@ ParticleSystem:
         ctime6: 0
         ctime7: 0
         atime0: 0
-        atime1: 32768
+        atime1: 49151
         atime2: 65535
         atime3: 0
         atime4: 0
@@ -17864,12 +17864,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1034068821}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 8.99, y: 0.5, z: -34.44}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 11.017621, y: -1.7393966, z: -15.349813}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_Father: {fileID: 1639251250}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!1 &1035669901
 GameObject:
@@ -18084,7 +18084,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 9d7f28721c2867142bc592c0f32f038f,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 9d7f28721c2867142bc592c0f32f038f,
         type: 3}
@@ -18963,7 +18963,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1106830199
 PrefabInstance:
@@ -21943,7 +21943,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1001 &1366659893
 PrefabInstance:
@@ -25066,6 +25066,37 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1637825293}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1639251249
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1639251250}
+  m_Layer: 0
+  m_Name: "\u7279\u6548\u7BA1\u7406"
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1639251250
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639251249}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.0276213, y: 2.2393966, z: -19.090185}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1034068824}
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1640678173
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -32193,7 +32224,7 @@ PrefabInstance:
     - target: {fileID: 4185146729572892829, guid: c769ba7be25b76b469c7d452ad3c2de6,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4185146729572892829, guid: c769ba7be25b76b469c7d452ad3c2de6,
         type: 3}
