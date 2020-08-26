@@ -33,6 +33,14 @@ public class MenuManager : MonoBehaviour
             textLoading.text = "載入進度:" + (ao.progress / 0.9f * 100).ToString("F2") + "%";
             imageLoading.fillAmount = ao.progress / 0.9f;
             yield return null;//一影格執行
+
+            if (ao.progress == 0.9f)
+            {
+                textTip.enabled = true;
+
+                if (Input.anyKeyDown)
+                    ao.allowSceneActivation = true;
+            }
         }
     }
 }
