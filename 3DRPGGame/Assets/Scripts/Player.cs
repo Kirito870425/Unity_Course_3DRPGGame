@@ -35,8 +35,15 @@ public class Player : MonoBehaviour
         //Vector3 pos = transform.forward * v + transform.right * h;  //區域作標
         Vector3 pos = cam.forward * v + cam.right * h;  //攝影機的區域作標
         rigi.MovePosition(transform.position + pos * m_speed * Time.fixedDeltaTime);
-        //ABS絕對值
+        //Abs絕對值
         ani.SetFloat("PlayerMove", Mathf.Abs(v) + Mathf.Abs(h));
+        //如果有控制，再轉向:避免沒移動時轉回原點
+        if (h != 0 || v != 0)
+        {
+            pos.y = 0;                                                                                  //鎖定Y軸，避免吃土
+            Quaternion angle = Quaternion.LookRotation(pos);                                            //將前往的座標轉為角度
+            transform.rotation = Quaternion.Slerp(transform.rotation, angle, m_turn * Time.deltaTime);  //角度差值
+        }
     }
     public void Attack()
     {

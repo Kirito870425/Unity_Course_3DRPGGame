@@ -26,8 +26,8 @@ public class CameraControl : MonoBehaviour
 
         transform.position = Vector3.Lerp(posA, posB, Time.deltaTime * speed);
 
-        rot.x += Input.GetAxis("Mouse Y") * turn * Time.deltaTime;  //上下角度
-        rot.y -= Input.GetAxis("Mouse X") * turn * Time.deltaTime;  //左右
+        rot.x -= Input.GetAxis("Mouse Y") * turn * Time.deltaTime;  //上下角度
+        rot.y += Input.GetAxis("Mouse X") * turn * Time.deltaTime;  //左右
 
         rot.x = Mathf.Clamp(rot.x, limit.y, limit.x);               //夾住X在限制內
         //四元轉歐拉角度(0-360)
