@@ -8,17 +8,30 @@ public class NPC : MonoBehaviour
     public GameObject panel;
     public Text textName;                                       //名稱
     public Text textContent;                                    //內容
+
+    public RectTransform rectmisstion;
+
+    public GameObject objectshow;
+
+    private Animator ani;
     private AudioSource aud;
+    private Player player;
+
+    #region 協程
 
     /// <summary>
-    /// 打字效果
+    /// 打字效果，動畫效果
     /// </summary>
     /// <returns></returns>
     private IEnumerator Type()
     {
+        PlayAnimation();
+
+        player.stop = true;
+
         textContent.text = "";                                  //清空
 
-        string dialog = data.dialogs[0];                        //取得內容
+        string dialog = data.dialogs[(int)data.state];          //取得內容***取得列舉的整數方式
 
         for (int i = 0; i < dialog.Length; i++)                 //執行對話
         {
@@ -26,16 +39,47 @@ public class NPC : MonoBehaviour
             aud.PlayOneShot(data.sound, 0.5f);
             yield return new WaitForSeconds(data.speed);        //協程等待
         }
+        player.stop = false;
+
+        NoMission();
+    }
+    /// <summary>
+    /// 顯示任務欄
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator ShowMission()
+    {
+        while (rectmisstion.anchoredPosition.x > 0)
+        {
+            rectmisstion.anchoredPosition -= new Vector2(500 * Time.deltaTime, 0);
+            yield return null;//等待
+        }
     }
 
-    private void Awake()
+    #endregion
+    /// <summary>
+    /// 對話動畫
+    /// </summary>
+    private void PlayAnimation()
     {
-        aud = GetComponent<AudioSource>();
+        if (data.state != StateNPC.finish)
+        {
+            ani.SetBool("對話開關", true);
+        }
+        else
+        {
+            ani.SetTrigger("完成任務");
+        }
     }
 
     private void NoMission()
     {
+        if (data.state != StateNPC.NoMission) return;
 
+        data.state = StateNPC.missioning;
+        objectshow.SetActive(true);
+
+        StartCoroutine(ShowMission());
     }
 
     private void Missioning()
@@ -43,9 +87,10 @@ public class NPC : MonoBehaviour
 
     }
 
-    private void Finish()
+    public void Finish()
     {
-
+        data.state = StateNPC.finish;
+        ani.SetBool("對話開關", false);
     }
     #region 對話內容
 
@@ -87,6 +132,13 @@ public class NPC : MonoBehaviour
         if (other.name == "快樂瘋男")
             LookAtPlayer(other);
     }
-
     #endregion
+    private void Awake()
+    {
+        aud = GetComponent<AudioSource>();
+        ani = GetComponent<Animator>();
+        player = FindObjectOfType<Player>();
+
+        data.state = StateNPC.NoMission;
+    }
 }

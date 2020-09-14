@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -16,9 +17,19 @@ public class Player : MonoBehaviour
 
     public float m_exp = 0;
     public int m_lv = 1;
+    public Text textmission;
+    public int count;
 
     private Animator ani;
     private Rigidbody rigi;
+    private NPC npc;
+    [HideInInspector]       //在屬性面板上隱藏
+    public bool stop;
+
+    [Header("音效區")]
+    public AudioClip soundprop;
+    private AudioSource aud;
+
 
     #endregion
 
@@ -59,7 +70,13 @@ public class Player : MonoBehaviour
     }
     public void GetProp()
     {
+        count++;
+        textmission.text = "打敗Sland" + count + "/" + npc.data.count;
 
+        if (count ==npc.data.count)
+        {
+            npc.Finish();
+        }
     }
 
     #endregion
@@ -72,13 +89,27 @@ public class Player : MonoBehaviour
     {
         ani = GetComponent<Animator>();
         rigi = GetComponent<Rigidbody>();
+        aud = GetComponent<AudioSource>();
+        npc = FindObjectOfType<NPC>();
 
         cam = GameObject.Find("攝影機根物件").transform;  //建議不要在update使用 占用效能
     }
 
     private void FixedUpdate()//固定50FPS更新,推薦物理運動
     {
+        if (stop) return;
+
         Move();
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "道具_骷髏頭")
+        {
+            aud.PlayOneShot(soundprop);
+            Destroy(collision.gameObject);
+            GetProp();
+        }
     }
 
     #endregion
