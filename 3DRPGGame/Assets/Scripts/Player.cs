@@ -30,6 +30,11 @@ public class Player : MonoBehaviour
     public AudioClip soundprop;
     private AudioSource aud;
 
+    [Header("吧條")]
+    public Image barhp;
+    public Image barmp;
+    public Image barexp;
+    private float maxhp, maxmp, maxexp;
 
     #endregion
 
@@ -60,9 +65,18 @@ public class Player : MonoBehaviour
     {
 
     }
-    public void Hit()
+    /// <summary>
+    /// 玩家受傷
+    /// </summary>
+    /// <param name="damage">傷害直</param>
+    /// <param name="direction">擊退方向</param>
+    public void Hit(float damage, Transform direction)
     {
+        m_hp -= damage;
+        rigi.AddForce(direction.forward * 100 + direction.up * 150);//受傷效果，往後往上
 
+        barhp.fillAmount = m_hp / maxhp;
+        ani.SetTrigger("PlayerHit");
     }
     public void Dead()
     {
@@ -73,7 +87,7 @@ public class Player : MonoBehaviour
         count++;
         textmission.text = "打敗Sland" + count + "/" + npc.data.count;
 
-        if (count ==npc.data.count)
+        if (count == npc.data.count)
         {
             npc.Finish();
         }
@@ -87,6 +101,9 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
+        maxhp = m_hp;
+        maxmp = m_mp;
+
         ani = GetComponent<Animator>();
         rigi = GetComponent<Rigidbody>();
         aud = GetComponent<AudioSource>();
