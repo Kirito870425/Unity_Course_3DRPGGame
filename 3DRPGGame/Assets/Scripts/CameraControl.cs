@@ -35,8 +35,12 @@ public class CameraControl : MonoBehaviour
     }
 
     #endregion
-    
+
     #region 事件
+    private void Awake()
+    {
+        Cursor.visible = false; //指標.可視性
+    }
 
     private void LateUpdate()
     {

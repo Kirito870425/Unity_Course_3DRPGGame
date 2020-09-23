@@ -35,6 +35,8 @@ public class Player : MonoBehaviour
     public Image barmp;
     public Image barexp;
     private float maxhp, maxmp, maxexp;
+    /// <summary>攝影機根物件</summary>
+    private Transform cam;
 
     #endregion
 
@@ -63,7 +65,10 @@ public class Player : MonoBehaviour
     }
     public void Attack()
     {
-
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            ani.SetTrigger("PlayerAttack");
+        }
     }
     /// <summary>
     /// 玩家受傷
@@ -77,9 +82,14 @@ public class Player : MonoBehaviour
 
         barhp.fillAmount = m_hp / maxhp;
         ani.SetTrigger("PlayerHit");
+
+        if (m_hp <= 0) Dead();
     }
     public void Dead()
     {
+        //this.enabled = false; //第一種
+        enabled = false;        //第二種
+        ani.SetBool("PlayerDead", true);
 
     }
     public void GetProp()
@@ -94,8 +104,6 @@ public class Player : MonoBehaviour
     }
 
     #endregion
-    /// <summary>攝影機根物件</summary>
-    private Transform cam;
 
     #region 事件
 
@@ -119,6 +127,11 @@ public class Player : MonoBehaviour
         Move();
     }
 
+    private void Update()
+    {
+        Attack();
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "道具_骷髏頭")
@@ -126,6 +139,13 @@ public class Player : MonoBehaviour
             aud.PlayOneShot(soundprop);
             Destroy(collision.gameObject);
             GetProp();
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "怪物")
+        {
+            other.GetComponent<Enemy>().Hit(m_attack, transform);
         }
     }
 
