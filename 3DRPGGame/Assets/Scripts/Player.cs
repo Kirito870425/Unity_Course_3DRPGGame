@@ -15,28 +15,35 @@ public class Player : MonoBehaviour
     [Header("魔力"), Range(0, 1000)]
     public float m_mp = 250;
 
-    public float m_exp = 0;
-    public int m_lv = 1;
+    public int lv = 1;
+    public float exp = 0;
+    public Image barexp;
+    public Text lvtext;
+
     public Text textmission;
     public int count;
+    public GameObject rock;
+    public Transform pointRock;
+    public float costRock = 20;
+    public float damageRock = 100;
+
+    [Header("音效區")]
+    public AudioClip soundprop;
+
+    [Header("吧條")]
+    public Image barhp;
+    public Image barmp;
 
     private Animator ani;
     private Rigidbody rigi;
     private NPC npc;
     [HideInInspector]       //在屬性面板上隱藏
     public bool stop;
-
-    [Header("音效區")]
-    public AudioClip soundprop;
     private AudioSource aud;
-
-    [Header("吧條")]
-    public Image barhp;
-    public Image barmp;
-    public Image barexp;
-    private float maxhp, maxmp, maxexp;
+    private float maxhp, maxmp, maxexp = 100;
     /// <summary>攝影機根物件</summary>
     private Transform cam;
+    private float[] exps;
 
     #endregion
 
@@ -85,6 +92,9 @@ public class Player : MonoBehaviour
 
         if (m_hp <= 0) Dead();
     }
+    /// <summary>
+    /// 玩家死亡
+    /// </summary>
     public void Dead()
     {
         //this.enabled = false; //第一種
@@ -92,6 +102,9 @@ public class Player : MonoBehaviour
         ani.SetBool("PlayerDead", true);
 
     }
+    /// <summary>
+    /// 取得道具
+    /// </summary>
     public void GetProp()
     {
         count++;
@@ -102,13 +115,87 @@ public class Player : MonoBehaviour
             npc.Finish();
         }
     }
+    /// <summary>
+    /// 經驗值
+    /// </summary>
+    /// <param name="expGet">取得的經驗值</param>
+    public void Exp(float expGet)
+    {
+        exp += expGet;
+        barexp.fillAmount = exp / maxexp;
 
+        while (exp >= maxexp) LevelUp();
+    }
+    /// <summary>
+    /// 升級
+    /// </summary>
+    private void LevelUp()
+    {
+        lv++;
+        lvtext.text = "Lv" + lv;
+
+        //升級後最大數值提升
+        maxhp += 20;
+        maxmp += 5;
+        m_attack += 10;
+        //升級後全滿
+        m_hp = maxhp;
+        m_mp = maxmp;
+
+        barhp.fillAmount = 1;
+        barmp.fillAmount = 1;
+
+        //經驗值合理化
+        exp -= maxexp;
+        maxexp = exps[lv - 1];  //LV1抓第0筆資料，以此類推，等合理化後再進行經驗值調整
+        barexp.fillAmount = exp / maxexp;
+    }
+    /// <summary>
+    /// 流星雨
+    /// </summary>
+    private void SkillRock()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse1) && m_mp >= costRock)
+        {
+            ani.SetTrigger("Playerboll");
+            Instantiate(rock, pointRock.position, pointRock.rotation);
+            m_mp -= costRock;
+            barmp.fillAmount = m_mp / maxmp;
+        }
+    }
+    private void RestoreMp()
+    {
+        float restoremp = 5;
+        m_mp += restoremp * Time.deltaTime;
+        m_mp = Mathf.Clamp(m_mp, 0, maxmp);
+        barmp.fillAmount = m_mp / maxmp;
+    }
+    [Header("回血量/每秒")]
+    public float restoreHp = 5;
+    [Header("回魔量/每秒")]
+    public float restoreMp = 10;
+
+    /// <summary>
+    /// 恢復系統
+    /// </summary>
+    /// <param name="value">恢復值</param>
+    /// <param name="restore">每秒恢復</param>
+    /// <param name="max">最大值</param>
+    /// <param name="bar">更新吧條</param>
+    private void Restore(float value, float restore, float max, Image bar)
+    {
+        value += restore * Time.deltaTime;
+        value = Mathf.Clamp(value, 0, maxmp);
+        bar.fillAmount = value / max;
+    }
     #endregion
 
     #region 事件
 
     private void Awake()
     {
+        exps = new float[99];
+        for (int i = 0; i < exps.Length; i++) exps[i] = maxexp * (i + 1);
         maxhp = m_hp;
         maxmp = m_mp;
 
@@ -130,6 +217,10 @@ public class Player : MonoBehaviour
     private void Update()
     {
         Attack();
+        SkillRock();
+        //回血魔
+        Restore(m_hp, restoreHp, maxhp, barhp);
+        Restore(m_mp, restoreMp, maxmp, barmp);
     }
 
     private void OnCollisionEnter(Collision collision)

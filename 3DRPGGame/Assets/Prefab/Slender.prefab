@@ -2793,9 +2793,9 @@ MonoBehaviour:
   speed: 6
   attack: 10
   hp: 100
-  prop: 1
-  skull: {fileID: 0}
-  exp: 10
+  prop: 0.5
+  skull: {fileID: 5048083372760500103, guid: 7a9b5875a7eec35409643e381d710cec, type: 3}
+  exp: 20
   rangeAttack: 2.5
   cd: 2
   trun: 20

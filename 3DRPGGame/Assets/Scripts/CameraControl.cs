@@ -8,7 +8,7 @@ public class CameraControl : MonoBehaviour
     public Transform target;
     [Header("追蹤速度"), Range(0, 500)]
     public float speed;
-    [Header("旋轉速度"), Range(0, 500)]
+    [Header("旋轉速度"), Range(0, 1000)]
     public float turn;
     [Header("上下角度限制")]
     public Vector2 limit = new Vector2(45, -30);
