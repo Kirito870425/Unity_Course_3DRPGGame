@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class Player : MonoBehaviour
 {
@@ -101,6 +102,29 @@ public class Player : MonoBehaviour
         enabled = false;        //第二種
         ani.SetBool("PlayerDead", true);
 
+        StartCoroutine(ShowFinal());
+    }
+    [Header("遊戲結束畫面")]
+    public CanvasGroup final;
+    public Text textFinal;
+    /// <summary>
+    /// 顯示結束畫面
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator ShowFinal()
+    {
+        yield return new WaitForSeconds(0.5f);  //等0.5S
+
+        textFinal.text = "新細明體 你死了";
+
+        while (final.alpha < 1)
+        {
+            final.alpha += 0.5f * Time.deltaTime;
+            yield return null;
+        }
+        Cursor.visible = true;                  //顯示滑鼠
+        final.interactable = true;              //結束才可互動
+        final.blocksRaycasts = true;            //開啟滑鼠阻擋
     }
     /// <summary>
     /// 取得道具
